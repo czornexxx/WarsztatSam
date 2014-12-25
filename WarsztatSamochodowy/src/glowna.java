@@ -2,6 +2,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import wBazy.Uprawnienia;
 import wBazy.bKlient;
 import wBazy.bPracownik;
 import wBazy.bSamochod;
@@ -21,7 +22,7 @@ public class glowna {
     
 		ArrayList<Samochod> Lista = new ArrayList<Samochod>(); 
 	
-		//Klient staszek = bKlient.WczytajKlienta("23234");
+		Klient staszek = bKlient.WczytajKlienta("23234");
 		// Klient nowy = new Klient("7777771", "Ala", "Notakowska", "hahahahah");
 		// System.out.println( bKlient.ZapiszKlienta(nowy) );
 		 
@@ -33,12 +34,11 @@ public class glowna {
 		
 		//System.out.println(prac.toString());
 		
-		Samochod sam = bSamochod.Wczytaj("924731");
+		//Samochod sam = bSamochod.Wczytajnr("RSR 999");
 		
 		//Samochod sam = new Samochod( "924731", "VW", "Puno", "RSR 828", "2000-01-23");
 		
-		bSamochod.Zapisz(sam);
-		System.out.println(sam.toString());
+		System.out.println(staszek.toString());
 		
 		//Klient dam = new Klient("924731", "Alan","JTam","Dobry");
 		/*

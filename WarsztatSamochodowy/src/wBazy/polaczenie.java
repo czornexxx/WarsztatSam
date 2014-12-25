@@ -23,7 +23,8 @@ public class polaczenie {
 		// root
 		if(uprawnienia == 0){
 		
-			polaczenieURL = "jdbc:" + IP + nazwaBazy + "?user=root&password=asdf";			
+			//polaczenieURL = "jdbc:" + IP + nazwaBazy + "?user="+Uprawnienia.ADMIN.getLogin()+"&password="+Uprawnienia.ADMIN.getHaslo();			
+			polaczenieURL = "jdbc:" + IP + nazwaBazy + "?user=root&password=asdf";
 			laczyc = true;
 		}else if(uprawnienia == 1){		// klient
 		
@@ -37,9 +38,7 @@ public class polaczenie {
 			try{	
                 
 				Class.forName("com.mysql.jdbc.Driver");
-				
                 conn = DriverManager.getConnection(polaczenieURL);
-
                 stmt = conn.createStatement();
                 
 			}			

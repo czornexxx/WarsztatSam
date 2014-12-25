@@ -9,12 +9,37 @@ public class bSamochod {
 	
 	private static obslugaZapytan obsZap = obslugaZapytan.ObslugaZapytan;
 	
-	public static Samochod Wczytaj(String idKlienta){	
+	public static Samochod Wczytajid(String idKlienta){	
 		
 		Samochod nowySamochod = null;
 		ResultSet rs = null;
 		
 		rs = obsZap.select("SELECT idSamochod, Klient_Pesel, Marka, Model, NumerRej, Rok FROM samochod WHERE Klient_Pesel = " + idKlienta );
+		
+		if(rs != null){	
+			
+			try {
+				if(rs.next())
+				
+					nowySamochod = new Samochod(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6));	// Utworzenie uzytkownika z danych z bazy
+					nowySamochod.setIstnieje(true);		// ustawienie, ¿e klient ma dane w bazie.
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
+		}
+
+		return nowySamochod;
+	}
+	
+	
+	public static Samochod Wczytajnr(String nrRej){	
+		
+		Samochod nowySamochod = null;
+		ResultSet rs = null;
+		
+		rs = obsZap.select("SELECT idSamochod, Klient_Pesel, Marka, Model, NumerRej, Rok FROM samochod WHERE NumerRej = '" + nrRej + "';" );
 		
 		if(rs != null){	
 			
@@ -48,7 +73,7 @@ public class bSamochod {
 			if(result == 1){
 			
 				samochod.setIstnieje(true);
-				Samochod tmp = bSamochod.Wczytaj(samochod.getKlientPesel());
+				Samochod tmp = bSamochod.Wczytajid(samochod.getKlientPesel());
 				samochod.setIdSamochodu(tmp.getIdSamochodu());				
 			}
 		}
