@@ -1,67 +1,108 @@
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import wBazy.Uprawnienia;
+import wBazy.bCzesci;
+import wBazy.bCzesciZlecenia;
 import wBazy.bKlient;
+import wBazy.bMiejsceSerwisowe;
 import wBazy.bPracownik;
 import wBazy.bSamochod;
+import wBazy.bStanowisko;
+import wBazy.bUsluga;
+import wBazy.bUslugiZlecenia;
+import wBazy.bZlecenia;
 import wBazy.obslugaZapytan;
 import wBazy.polaczenie;
+import wDanych.Czesci;
+import wDanych.CzesciZlecenia;
+import wDanych.Init;
 import wDanych.Klient;
+import wDanych.Logowanie;
+import wDanych.MiejsceSerwisowe;
 import wDanych.Pracownik;
 import wDanych.Samochod;
+import wDanych.Stanowisko;
+import wDanych.Usluga;
+import wDanych.UslugiZlecenia;
+import wDanych.Zlecenia;
 
 
 public class glowna {
 
+
+	public static void KlientRun(){
+	
+		int tmp = Logowanie.Zaloguj("test", "test");
+		System.out.println("Status logowania: " + tmp);
+
+		Klient kl = Logowanie.klient;
+		
+		for(Samochod sam: kl.getlSamochody()){
+			
+			System.out.println(sam.toString());
+
+			for(Zlecenia zlec: sam.getListaZlecen()){
+				
+				for(UslugiZlecenia usl:zlec.getUslugiZlecenia()){
+					
+					System.out.println(usl.showUsluga());					
+				}
+				
+				for(CzesciZlecenia cze:zlec.getCzesciZlecenia()){
+					
+					System.out.println(cze.showCzesc());					
+				}
+			}		
+		}
+	}
+	
+	public static void AdminRun(){
+		
+		int tmp = Logowanie.Zaloguj("admin", "admin");
+		System.out.println("Status logowania: " + tmp);
+		
+		// DODANIE CZESCI
+		/*
+		Czesci nowa = new Czesci("FP222", "20", "Bosh", "Filtr Powietrza", 20);
+		bCzesci.ZapiszCzesc(nowa);
+		*/
+
+		// DODANIE USLUGI
+		/*
+		Usluga nowa = new Usluga("Wyniana kolumny mc-persona", "Naprawa polega na wymianie kolumny", "100", true);
+		bUsluga.ZapiszUsluge(nowa);
+		*/
+
+		// DODANIE MIEJSCA SERWISOWEGO
+		/*
+		MiejsceSerwisowe nowe = new MiejsceSerwisowe("Podnosnik xxx");
+		bMiejsceSerwisowe.ZapiszMiejsceSerwisowe(nowe);
+		*/
+
+		//DODANIE STANOWISKA PRACY
+		/*
+		Stanowisko nowe = new Stanowisko("Test Test", "20000", "jakas nazwa");
+		bStanowisko.ZapiszStanowisko(nowe);
+		*/
+		
+	
+		
+		
+	}
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		
+		Init.InitAll(); 		// Tworzy po³¹cznie, wczytuje ogólne informacje z bazy tj Uslugi, czesci itp.
 
-		obslugaZapytan obsZap = new obslugaZapytan();
-    
-		ArrayList<Samochod> Lista = new ArrayList<Samochod>(); 
-	
-		Klient staszek = bKlient.WczytajKlienta("23234");
-		// Klient nowy = new Klient("7777771", "Ala", "Notakowska", "hahahahah");
-		// System.out.println( bKlient.ZapiszKlienta(nowy) );
-		 
-		 //System.out.println(staszek.toString()); 
-		//Pracownik prac = bPracownik.WczytajPracownika("2343");
+		//KlientRun();
 		
-		//prac.setImie("Alan");
-		// bPracownik.ZapiszPracownika(prac);
-		
-		//System.out.println(prac.toString());
-		
-		//Samochod sam = bSamochod.Wczytajnr("RSR 999");
-		
-		//Samochod sam = new Samochod( "924731", "VW", "Puno", "RSR 828", "2000-01-23");
-		
-		System.out.println(staszek.toString());
-		
-		//Klient dam = new Klient("924731", "Alan","JTam","Dobry");
-		/*
-		try {
-		obslugaZapytan obsZap = new obslugaZapytan();
-		
-		ResultSet rs = obslugaZapytan.ObslugaZapytan.select("Select * from pracownik");
-		
-		String tmp;
-
-			while(rs.next()){
-			    
-			 tmp = rs.getString(1) + "  " + rs.getString(2) + "  " + rs.getString(3);
-      
-			 System.out.println(tmp);
-      
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-*/		
+		AdminRun();
+				
+	  
 	}
 
 }

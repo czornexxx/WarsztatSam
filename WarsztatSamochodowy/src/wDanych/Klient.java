@@ -1,5 +1,7 @@
 package wDanych;
 
+import java.util.ArrayList;
+
 public class Klient {
 
 	private String pesel;
@@ -7,6 +9,9 @@ public class Klient {
 	private String nazwisko;
 	private String adres;
 	private boolean intnieje; 
+	
+// Kolekcje danych	
+	private ArrayList<Samochod> lSamochody = null;
 	
 	public Klient(String Pesel, String Imie, String Nazwisko, String Adres){
 		
@@ -29,6 +34,16 @@ public class Klient {
 	public String toString() {
 		return "Klient [Pesel=" + pesel + ", Imie=" + imie + ", Nazwisko="
 				+ nazwisko + ", Adres=" + adres + "]";
+	}
+	
+	public String showCars() {
+		
+		String tmp = "";
+		
+		for(Samochod tmpSam : lSamochody)
+			tmp += tmpSam.toString() + " \n"; 
+			
+		return tmp;
 	}
 	
 //**************** SETERY GETERY **************************
@@ -66,9 +81,19 @@ public class Klient {
 		return adres;
 	}
 
-
+	
 	public void setAdres(String adres) {
 		this.adres = adres;
+	}
+
+	
+	public ArrayList<Samochod> getlSamochody() {
+		return lSamochody;
+	}
+
+
+	public void setlSamochody(ArrayList<Samochod> lSamochody) {
+		this.lSamochody = lSamochody;
 	}
 	
 }

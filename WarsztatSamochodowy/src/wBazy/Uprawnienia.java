@@ -2,14 +2,14 @@ package wBazy;
 
 public enum Uprawnienia { 
 	
-	ADMIN(0,"root","asdf");
-//	WLASCICIEL(1), 
-//	KIEROWNIK(2),
-//	RECEPCJONISTA(3),  
-//	SERWISANT(4),
-//	KLIENT(5), 
-//	WSZYSCY(6),
-//	LOGOWANIE(7);	
+	ADMIN(0,"root","asdf"),
+	WLASCICIEL(1,"wlasciciel","wlasciciel"), 
+	KIEROWNIK(2,"kierownik","kierownik"),
+	RECEPCJONISTA(3,"recepcja","recepcja"),  
+	SERWISANT(4,"serwisant","serwisant"),
+	KLIENT(5,"klient","klient1"), 
+	WSZYSCY(6,"all","all"),
+	LOGOWANIE(7,"login","login1");	
 	
 	private final int nrUprawnienia;
 	private final String login;

@@ -15,21 +15,56 @@ public class polaczenie {
 	private String polaczenieURL; 
 	private Connection conn;
 	private Statement stmt;
+	private Uprawnienia privileges; 
 	
 	public polaczenie(int uprawnienia) {
 	
 		boolean laczyc = false;
 		
 		// root
-		if(uprawnienia == 0){
+		if(uprawnienia == Uprawnienia.ADMIN.getNr()){	// 0
 		
-			//polaczenieURL = "jdbc:" + IP + nazwaBazy + "?user="+Uprawnienia.ADMIN.getLogin()+"&password="+Uprawnienia.ADMIN.getHaslo();			
-			polaczenieURL = "jdbc:" + IP + nazwaBazy + "?user=root&password=asdf";
+			polaczenieURL = "jdbc:" + IP + nazwaBazy + "?user="+Uprawnienia.ADMIN.getLogin()+"&password="+Uprawnienia.ADMIN.getHaslo();		
 			laczyc = true;
-		}else if(uprawnienia == 1){		// klient
+			privileges = Uprawnienia.ADMIN; 
+		}else if(uprawnienia == Uprawnienia.KLIENT.getNr()){	// 5	
 		
-			polaczenieURL = "jdbc:" + IP + nazwaBazy + "?user=klient&password=klient1";			
+			polaczenieURL = "jdbc:" + IP + nazwaBazy + "?user="+Uprawnienia.KLIENT.getLogin()+"&password="+Uprawnienia.KLIENT.getHaslo();			
 			laczyc = true;
+			privileges = Uprawnienia.KLIENT;
+		}else if(uprawnienia == Uprawnienia.LOGOWANIE.getNr()){	 // 7
+		
+			polaczenieURL = "jdbc:" + IP + nazwaBazy + "?user="+Uprawnienia.LOGOWANIE.getLogin()+"&password="+Uprawnienia.LOGOWANIE.getHaslo();			
+			laczyc = true;
+			privileges = Uprawnienia.LOGOWANIE;
+		}else if(uprawnienia == Uprawnienia.WLASCICIEL.getNr()){	 // 1
+		
+			polaczenieURL = "jdbc:" + IP + nazwaBazy + "?user="+Uprawnienia.WLASCICIEL.getLogin()+"&password="+Uprawnienia.WLASCICIEL.getHaslo();			
+			laczyc = true;
+			privileges = Uprawnienia.WLASCICIEL;
+		}else if(uprawnienia == Uprawnienia.KIEROWNIK.getNr()){	 // 2
+		
+			polaczenieURL = "jdbc:" + IP + nazwaBazy + "?user="+Uprawnienia.KIEROWNIK.getLogin()+"&password="+Uprawnienia.KIEROWNIK.getHaslo();			
+			laczyc = true;
+			privileges = Uprawnienia.KIEROWNIK;
+		}else if(uprawnienia == Uprawnienia.RECEPCJONISTA.getNr()){	 // 3
+		
+			polaczenieURL = "jdbc:" + IP + nazwaBazy + "?user="+Uprawnienia.RECEPCJONISTA.getLogin()+"&password="+Uprawnienia.RECEPCJONISTA.getHaslo();			
+			laczyc = true;
+			privileges = Uprawnienia.RECEPCJONISTA;
+		}else if(uprawnienia == Uprawnienia.SERWISANT.getNr()){	 // 4
+		
+			polaczenieURL = "jdbc:" + IP + nazwaBazy + "?user="+Uprawnienia.SERWISANT.getLogin()+"&password="+Uprawnienia.SERWISANT.getHaslo();			
+			laczyc = true;
+			privileges = Uprawnienia.SERWISANT;
+		}else if(uprawnienia == Uprawnienia.WSZYSCY.getNr()){	 // 6
+		
+			polaczenieURL = "jdbc:" + IP + nazwaBazy + "?user="+Uprawnienia.WSZYSCY.getLogin()+"&password="+Uprawnienia.WSZYSCY.getHaslo();			
+			laczyc = true;
+			privileges = Uprawnienia.WSZYSCY;
+		}else{
+			
+			System.err.println("B³êdne uprawnienia");
 		}
 		
 		
@@ -107,4 +142,9 @@ public int update(String query){
 	return result;
 }
 	
+public Uprawnienia getPrivileges()
+{
+	return privileges;
+}
+
 }

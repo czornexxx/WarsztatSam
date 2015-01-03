@@ -10,6 +10,9 @@ public class Pracownik {
 	private String ulica;
 	private String stanowisko;
 	private boolean intnieje; 
+
+			
+	
 	
 	public Pracownik(String pesel, String imie, String nazwisko,
 			String miejscowosc, String kodPocztowy, String ulica, String stanowisko) {

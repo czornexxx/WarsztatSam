@@ -20,11 +20,13 @@ public class bKlient {
 		if(rs != null){	
 			
 			try {
-				if(rs.next())
+				if(rs.next()){
 				
 					nowyKlient = new Klient(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4));	// Utworzenie uzytkownika z danych z bazy
 					nowyKlient.setIntnieje(true);		// ustawienie, ¿e klient ma dane w bazie.
 				
+				
+				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

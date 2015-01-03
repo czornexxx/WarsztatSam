@@ -1,5 +1,7 @@
 package wDanych;
 
+import java.util.ArrayList;
+
 public class Samochod {
 
 	private String idSamochodu;
@@ -9,8 +11,9 @@ public class Samochod {
 	private String nrRejstracyjny;
 	private String rokProdukcji;
 	private boolean istnieje;
-
 	
+	private ArrayList<Zlecenia> listaZlecen = new ArrayList<Zlecenia>(0);
+
 	public Samochod(String idSamochodu, String klientPesel, String marka,
 			String model, String nrRejstracyjny, String rokProdukcji) {
 		
@@ -27,7 +30,6 @@ public class Samochod {
 			String model, String nrRejstracyjny, String rokProdukcji) {
 		
 		super();
-		this.idSamochodu = idSamochodu;
 		this.klientPesel = klientPesel;
 		this.marka = marka;
 		this.model = model;
@@ -35,11 +37,33 @@ public class Samochod {
 		this.rokProdukcji = rokProdukcji;
 	}
 
+	
+	
+	
+	public String showZlecenia(){
+		
+		String tmp = "";
+		
+		for(Zlecenia zlec: listaZlecen)
+			tmp += zlec.toString() + "\n";
+		
+		return tmp;
+	}
+	
+	
 	//************ SETERY GETERY ********************
 	
 
 	public String getIdSamochodu() {
 		return idSamochodu;
+	}
+
+	public ArrayList<Zlecenia> getListaZlecen() {
+		return listaZlecen;
+	}
+
+	public void setListaZlecen(ArrayList<Zlecenia> listaZlecen) {
+		this.listaZlecen = listaZlecen;
 	}
 
 	public String getKlientPesel() {
@@ -102,5 +126,4 @@ public class Samochod {
 				+ rokProdukcji + ", istnieje=" + istnieje + "]";
 	}
 	
-
 }

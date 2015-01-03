@@ -2,6 +2,7 @@ package wBazy;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import wDanych.Samochod;;
 
@@ -94,5 +95,40 @@ public class bSamochod {
 		
 		return result;
 	}
+	
+	public static ArrayList<Samochod> WczytajSamochodyKlienta(String idKlienta){	
+		
+		ArrayList<Samochod> samochodyKLienta = new ArrayList<Samochod>(0);
+		ResultSet rs = null;
+		
+		rs = obsZap.select("SELECT idSamochod, Klient_Pesel, Marka, Model, NumerRej, Rok FROM samochod WHERE Klient_Pesel = " + idKlienta );
+		
+		if(rs != null){	
+			
+			try {
+				while(rs.next()){
+				
+					Samochod tmpSam = new Samochod(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6));	// Utworzenie uzytkownika z danych z bazy
+					tmpSam.setIstnieje(true);		
+				
+					samochodyKLienta.add(tmpSam);				
+				}
+				
+				
+				// Wczytanie zlecen dla samochodow.
+				for(Samochod sam : samochodyKLienta){
+					
+					sam.setListaZlecen(bZlecenia.WczytajSamochodyKlienta(sam.getKlientPesel(), sam.getIdSamochodu()));					
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
+		}
+
+		return samochodyKLienta;
+	}
+	
 	
 }

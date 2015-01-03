@@ -11,7 +11,7 @@ public class obslugaZapytan {
 		
 	public obslugaZapytan(){
 		
-		pol = new polaczenie(0);
+		pol = new polaczenie(Uprawnienia.LOGOWANIE.getNr());
 		ObslugaZapytan = this; 
 	}
 	
@@ -34,4 +34,14 @@ public class obslugaZapytan {
 		return pol.update(query);
 	}
 
+	public Uprawnienia getPrivileges()
+	{
+		return pol.getPrivileges();
+	}
+	
+	public void changePrivileges(int i)
+	{
+		pol = new polaczenie(i);
+	}
+	
 }
