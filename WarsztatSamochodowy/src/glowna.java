@@ -1,3 +1,4 @@
+import java.security.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -32,10 +33,10 @@ import wDanych.Zlecenia;
 
 public class glowna {
 
-
+	
 	public static void KlientRun(){
 	
-		int tmp = Logowanie.Zaloguj("test", "test");
+		int tmp = Logowanie.Zaloguj("12312312312", "12312312312");
 		System.out.println("Status logowania: " + tmp);
 
 		Klient kl = Logowanie.klient;
@@ -63,6 +64,11 @@ public class glowna {
 		
 		int tmp = Logowanie.Zaloguj("admin", "admin");
 		System.out.println("Status logowania: " + tmp);
+		
+		
+		Klient nowy = new Klient("12312312312", "TestHash", "test", "dodanie");
+		bKlient.ZapiszKlienta(nowy);
+		
 		
 		// DODANIE CZESCI
 		/*
@@ -98,11 +104,12 @@ public class glowna {
 		
 		Init.InitAll(); 		// Tworzy po³¹cznie, wczytuje ogólne informacje z bazy tj Uslugi, czesci itp.
 
-		//KlientRun();
+		KlientRun();
 		
-		AdminRun();
-				
-	  
-	}
+		//AdminRun();
 
+
+
+	}
+	
 }

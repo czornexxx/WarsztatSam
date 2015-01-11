@@ -1,4 +1,6 @@
 package wDanych;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -25,7 +27,7 @@ public class Logowanie {
 		ResultSet rs = null;
 		int result = -1;	// -1 -> logowanie nie udane, 0 -> problem z uprawnieniami, 1 -> logowanie udane
 		
-		rs = obsZap.select("SELECT Uprawnienia, IdKlient, IdPracownik FROM logowanie WHERE Login = '" + login + "' AND Haslo = '" + haslo + "';");
+		rs = obsZap.select("SELECT Uprawnienia, IdKlient, IdPracownik FROM logowanie WHERE Login = '" + login + "' AND Haslo = '" + hashMD5(haslo) + "';");
 		
 		try {
 			if (rs.next()){
@@ -73,4 +75,31 @@ public class Logowanie {
 		return result;
 	}
 
+	
+	public static String hashMD5(String text){
+		
+		String tmp = null;
+		byte[] digest = null;
+			
+		try {
+				
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			md.update(text.getBytes());
+			digest = md.digest();	
+				
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		StringBuffer sb = new StringBuffer();
+		for (byte b : digest) {
+			sb.append(String.format("%02x", b & 0xff));
+			}
+			
+		tmp = sb.toString();
+		
+		return tmp;
+	}
+	
 }
