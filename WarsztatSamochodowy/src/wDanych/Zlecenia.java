@@ -2,6 +2,10 @@ package wDanych;
 
 import java.util.ArrayList;
 
+import wBazy.bCzesci;
+import wBazy.bCzesciZlecenia;
+import wBazy.bUslugiZlecenia;
+
 
 public class Zlecenia {
 	
@@ -18,6 +22,38 @@ public class Zlecenia {
 	private ArrayList<UslugiZlecenia> uslugiZlecenia = null; 
 	private ArrayList<CzesciZlecenia> czesciZlecenia = null;
 	
+	public Zlecenia(String dataPrzyjecia, String dataZakonczenia,	
+			String idSamochod, String idKlientPesel, String idPracownik,
+			String idMiejsceSerisowe) {
+		
+		super();
+		this.idZlecenia = "nz";				// nz = nie zapisano
+		this.dataPrzyjecia = dataPrzyjecia;
+		this.dataZakonczenia = dataZakonczenia;
+		this.koszt = "0";
+		this.wykonano = false;
+		this.idSamochod = idSamochod;
+		this.idKlientPesel = idKlientPesel;
+		this.idPracownik = idPracownik;
+		this.idMiejsceSerisowe = idMiejsceSerisowe;
+	}	
+	
+	public Zlecenia(String dataPrzyjecia,
+			String dataZakonczenia, String koszt, boolean wykonano,
+			String idSamochod, String idKlientPesel, String idPracownik,
+			String idMiejsceSerisowe) {
+		
+		super();
+		this.idZlecenia = "nz";				// nz = nie zapisano
+		this.dataPrzyjecia = dataPrzyjecia;
+		this.dataZakonczenia = dataZakonczenia;
+		this.koszt = koszt;
+		this.wykonano = wykonano;
+		this.idSamochod = idSamochod;
+		this.idKlientPesel = idKlientPesel;
+		this.idPracownik = idPracownik;
+		this.idMiejsceSerisowe = idMiejsceSerisowe;
+	}	
 	
 	public Zlecenia(String idZlecenia, String dataPrzyjecia,
 			String dataZakonczenia, String koszt, boolean wykonano,
@@ -35,7 +71,6 @@ public class Zlecenia {
 		this.idPracownik = idPracownik;
 		this.idMiejsceSerisowe = idMiejsceSerisowe;
 	}	
-	
 	
 	public String showUslugiZlecenia(){
 		
@@ -56,6 +91,81 @@ public class Zlecenia {
 		
 		return tmp;
 	}
+	
+//*********** Modyfikacja danych ************
+
+	public int dodajUsluge( String idUslugi, boolean wykonano){
+		
+		int result = 0;
+		
+		UslugiZlecenia tmpUs = new UslugiZlecenia(idZlecenia, idUslugi, wykonano);
+		result = bUslugiZlecenia.ZapiszUslugeZlecenia(tmpUs);
+		
+		if(result == 1)
+			uslugiZlecenia.add(tmpUs);
+		
+		return result;		
+	}
+	
+	public int aktualizujUsluge(String idUslugi, boolean wykonano){
+		
+		int result = 0;
+		
+		UslugiZlecenia tmpUs = new UslugiZlecenia(idZlecenia, idUslugi, wykonano);
+		result = bUslugiZlecenia.AktualizujUslugeZlecenia(tmpUs);
+		
+		if(result == 1){
+			
+			for(UslugiZlecenia us: uslugiZlecenia){
+				
+				if(us.getIdUslugi().equals(idUslugi)){
+					
+					us.setWykonano(wykonano);
+				}
+			}
+		}
+		return result;		
+	}
+	
+	
+	
+	public int dodajCzesc( String idCzesci, int ilosc){
+		
+		int result = 0;
+		
+		CzesciZlecenia tmpCZ = new CzesciZlecenia(idZlecenia, idCzesci, ilosc);
+		result = bCzesciZlecenia.ZapiszCzescZlecenia(tmpCZ);
+		
+		if(result == 1){
+			czesciZlecenia.add(tmpCZ);
+			bCzesci.WczytajCzesci(); 			// Aktualizacja magazynu
+		}
+		
+		return result;		
+	}
+	
+	public int aktualizujCzesc(String idCzesci, int ilosc){
+		
+		int result = 0;
+		
+		CzesciZlecenia tmpCZ = new CzesciZlecenia(idZlecenia, idCzesci, ilosc);
+		result = bCzesciZlecenia.AktualizujCzescZlecenia(tmpCZ);
+		
+		if(result == 1){
+			
+			for(CzesciZlecenia cz: czesciZlecenia){
+				
+				if(cz.getIdCzesci().equals(idCzesci)){
+					
+					cz.setIlosc(ilosc);
+					bCzesci.WczytajCzesci(); 				// Aktualizacja magazynu
+				}
+			}
+		}
+		
+		return result;		
+	}
+	
 	
 	@Override
 	public String toString() {

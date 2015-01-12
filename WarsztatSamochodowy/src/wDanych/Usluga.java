@@ -30,6 +30,14 @@ public class Usluga {
 		this.dostepna = dostepna;
 	}
 
+	public static Usluga getUsluga(int id){
+		
+		if(id > ListaUslug.size())
+			return null;
+		
+		return ListaUslug.get(id);		
+	}
+	
 	public static String showUsluga(String idUsl){
 		
 		String tmp = "";

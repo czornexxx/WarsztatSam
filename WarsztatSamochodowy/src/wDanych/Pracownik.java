@@ -1,5 +1,9 @@
 package wDanych;
 
+import java.util.ArrayList;
+
+import wBazy.bKlient;
+
 public class Pracownik {
 	
 	private String pesel;
@@ -11,7 +15,9 @@ public class Pracownik {
 	private String stanowisko;
 	private boolean intnieje; 
 
-			
+	// Kolekcje danych	
+		private ArrayList<Klient> lKlientow = null;
+		private ArrayList<Zlecenia> lZlecen = null;
 	
 	
 	public Pracownik(String pesel, String imie, String nazwisko,
@@ -27,11 +33,82 @@ public class Pracownik {
 		this.intnieje = false;
 	}
 	
+//*********** Modyfikacja danych ************
+		
+	public Klient nowyKlient(String Pesel, String Imie, String Nazwisko, String Adres){
+		
+		Klient nowyKlient = new Klient(Pesel, Imie, Nazwisko, Adres);
+		bKlient.ZapiszKlienta(nowyKlient);
+		
+		lKlientow.add(nowyKlient);
+		
+		return nowyKlient;
+	}
+
+	public Klient wyszukajKlienta(String Pesel){
+		
+		for(Klient kl: lKlientow){
+			
+			if(kl.getPesel().equals(Pesel))
+				return kl;			
+		}
+		
+		return null;		
+	}
+	
+	public ArrayList<Klient> wyszukajKlienta(String Imie, String Nazwisko){
+		
+		ArrayList<Klient> tmplKlientow = new ArrayList<Klient>();
+		
+		
+		for(Klient kl: lKlientow){
+			
+			System.out.println(kl.toString());
+			
+			if(kl.getImie().equals(Imie) && kl.getNazwisko().equals(Nazwisko))
+				tmplKlientow.add(kl);			
+		}
+		
+		if(tmplKlientow.size() > 0)		
+			return tmplKlientow;
+	
+		return null;
+	}
+	
+	
+
+//*********** Wyswietlanie danych ************
+	
+	public void showKlient(){
+		
+		for(Klient kl :lKlientow){
+			
+			System.out.println(kl.toString());
+			System.out.println(kl.showCars());
+		}		
+	}
+	
+	
+	
+	
+	
 	
 //*********** Setery Getery *****************
 	
+	
+	
 	public String getStanowisko() {
 		return stanowisko;
+	}
+
+
+	public ArrayList<Klient> getlKlientow() {
+		return lKlientow;
+	}
+
+
+	public void setlKlientow(ArrayList<Klient> lKlientow) {
+		this.lKlientow = lKlientow;
 	}
 
 

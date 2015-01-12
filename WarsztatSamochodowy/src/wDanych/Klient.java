@@ -2,6 +2,8 @@ package wDanych;
 
 import java.util.ArrayList;
 
+import wBazy.bSamochod;
+
 public class Klient {
 
 	private String pesel;
@@ -21,6 +23,54 @@ public class Klient {
 		this.adres = Adres;
 	}
 
+	
+	
+//*********** Modyfikacja danych ************
+
+	public int dodajSamochod(String marka, String model, String nrRejstracyjny, String rokProdukcji){
+		
+		int result;
+		
+		Samochod sam = new Samochod(pesel, marka, model, nrRejstracyjny, rokProdukcji);
+		result = bSamochod.Zapisz(sam);
+		
+		if(result == 1){
+			
+			lSamochody.add(sam);
+		}
+		
+		return result;
+	}
+	
+	
+	// Wyszukanie po nrRejestracyjnym
+	public Samochod wyszukajSamochod(String nrRejestracyjny){
+		
+		for(Samochod sam:lSamochody){
+			
+			if(sam.getNrRejstracyjny().equals(nrRejestracyjny))
+				return sam;			
+		}
+		
+		return null;		
+	}
+	
+	// Wyszukanie po model, marka
+	public ArrayList<Samochod> wyszukajSamochod(String marka, String model){
+		
+		ArrayList<Samochod> tmplSamochod = new ArrayList<Samochod>(0);
+		
+		for(Samochod sam: lSamochody){
+			
+			if(sam.getModel().equals(model) && sam.getMarka().equals(marka))
+				tmplSamochod.add(sam);
+		}
+		
+		return tmplSamochod;		
+	}
+	
+	
+	
 	
 	public boolean isIntnieje() {
 		return intnieje;
@@ -45,6 +95,16 @@ public class Klient {
 			
 		return tmp;
 	}
+	
+//************** Metody zarzadzania **********************
+	
+	public void wczytajSamochody(){
+		
+		lSamochody = bSamochod.WczytajSamochodyKlienta(pesel);		
+	}
+	
+	
+	
 	
 //**************** SETERY GETERY **************************
 	public String getPesel() {

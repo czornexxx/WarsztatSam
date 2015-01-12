@@ -1,4 +1,5 @@
 import java.security.*;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -36,7 +37,7 @@ public class glowna {
 	
 	public static void KlientRun(){
 	
-		int tmp = Logowanie.Zaloguj("12312312312", "12312312312");
+		int tmp = Logowanie.Zaloguj("test", "test");
 		System.out.println("Status logowania: " + tmp);
 
 		Klient kl = Logowanie.klient;
@@ -99,16 +100,69 @@ public class glowna {
 		
 	}
 	
+	public static void RecepcjonistaRun(){
+		
+		int tmp = Logowanie.Zaloguj("rOla", "rOla");
+		System.out.println("Status logowania: " + tmp);
+		
+		Pracownik recepc = Logowanie.pracownik;
+		Init.InitRecepcjonista(recepc);
+
+		
+		// DODANIE NOWEGO KLIENTA
+		//recepc.showKlient();
+		//recepc.nowyKlient("85000012341", "Tomek", "Testowy", "Wroclaw ul. nowa");
+		
+		// WYSZUKIWANIE PO PESELU
+		//Klient xxx = recepc.wyszukajKlienta("85000012345");
+		
+		// WYSZUKIWANIE PO IMIENIU, NAZWISKU
+		//ArrayList<Klient> ttmp = recepc.wyszukajKlienta("Tomek","Testowy"); 	
+		//if(ttmp != null)
+		//	System.out.println(ttmp.toString());
+		//else
+		//	System.out.println("Nie odnaleziono klienta");
+		
+		// DODANIE SAMOCHODU 
+		Klient xxx = recepc.wyszukajKlienta("85000012345");
+		//xxx.dodajSamochod("ford", "mondeo", "xx3342", "2011-04-12");
+		//System.out.println(xxx.showCars());
+		Samochod ttmp = xxx.wyszukajSamochod("RSR8325");
+		//ArrayList<Samochod> ttmp = xxx.wyszukajSamochod("ford","mondeo");
+		//System.out.println( MiejsceSerwisowe.ListaMiejscSerwisowych.get(1).toString());
+		//ttmp.dodajZlecenie("2004-11-20", "2004-11-30", "2343" , MiejsceSerwisowe.ListaMiejscSerwisowych.get(0).getIdMiejsca());
+		
+		
+		//AKTUALIZACJA ZLECENIA
+		Zlecenia tmpzlec = ttmp.zwrocOtwarteZlecenie();
+		//tmpzlec.setDataPrzyjecia("2001-01-01");
+		//bZlecenia.AktualizujZlecenieKlienta(tmpzlec);
+		
+		//DODAWANIE NOWYCH USLUG DO ZLECENIA
+		//tmpzlec.setDataPrzyjecia("1951-01-01");
+		//bZlecenia.AktualizujZlecenieKlienta(tmpzlec);
+		//tmpzlec.aktualizujUsluge(Usluga.getUsluga(1).getIdUsluga(), true);
+		
+		//DODAWANIE CZESCI DO ZLECENIA
+		tmpzlec.dodajCzesc(Czesci.getCzesc(1).getIdCzesci(), 9);
+		//tmpzlec.aktualizujCzesc(Czesci.ListaCzescia.get(0).getIdCzesci(), 7);
+		
+		
+		System.out.println(tmpzlec.toString());
+		System.out.println(ttmp.toString());
+		 
+	}
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
 		Init.InitAll(); 		// Tworzy po³¹cznie, wczytuje ogólne informacje z bazy tj Uslugi, czesci itp.
 
 		KlientRun();
-		
 		//AdminRun();
 
-
+		//RecepcjonistaRun();
+		
 
 	}
 	

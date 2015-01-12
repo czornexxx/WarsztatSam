@@ -60,6 +60,14 @@ public class Czesci {
 		return tmp;
 	}
 	
+	
+	public static Czesci getCzesc(int id){
+		
+		if(id > ListaCzescia.size())
+			return null;
+		
+		return ListaCzescia.get(id);		
+	}
 
 	@Override
 	public String toString() {

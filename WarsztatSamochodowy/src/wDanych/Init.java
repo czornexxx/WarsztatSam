@@ -1,6 +1,7 @@
 package wDanych;
 
 import wBazy.bCzesci;
+import wBazy.bKlient;
 import wBazy.bMiejsceSerwisowe;
 import wBazy.bSamochod;
 import wBazy.bStanowisko;
@@ -25,7 +26,11 @@ public static void InitKlient(Klient klient){
 	
 	// Wczytanie samochodow klienta
 	klient.setlSamochody(bSamochod.WczytajSamochodyKlienta(klient.getPesel()));
+}
+
+public static void InitRecepcjonista(Pracownik recepcjonista){
 	
+	recepcjonista.setlKlientow(bKlient.WczytajListeKlientow());	
 }
 
 

@@ -2,8 +2,10 @@ package wBazy;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import wDanych.Klient;
+import wDanych.Samochod;
 import wBazy.obslugaZapytan;;
 
 public class bKlient {
@@ -34,6 +36,39 @@ public class bKlient {
 		}
 
 		return nowyKlient;
+	}
+	
+	public static ArrayList<Klient> WczytajListeKlientow(){	
+		
+		Klient nowyKlient = null;
+		ArrayList<Klient> lKlientow = new ArrayList<Klient>(0);
+		ResultSet rs = null;
+		
+		rs = obsZap.select("SELECT Pesel, Imie, Nazwisko, Adres FROM klient ");
+		
+		if(rs != null){	
+			try {
+			while(rs.next()){
+				
+					nowyKlient = new Klient(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4));	// Utworzenie uzytkownika z danych z bazy
+					nowyKlient.setIntnieje(true);		// ustawienie, ¿e klient ma dane w bazie.
+					
+					lKlientow.add(nowyKlient);
+				}
+			
+			// Wczytanie samochodow klietna
+			for(Klient kl :lKlientow){
+				
+				kl.wczytajSamochody();
+			}
+			
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
+		}
+
+		return lKlientow;
 	}
 	
 	

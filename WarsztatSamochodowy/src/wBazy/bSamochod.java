@@ -118,7 +118,7 @@ public class bSamochod {
 				// Wczytanie zlecen dla samochodow.
 				for(Samochod sam : samochodyKLienta){
 					
-					sam.setListaZlecen(bZlecenia.WczytajSamochodyKlienta(sam.getKlientPesel(), sam.getIdSamochodu()));					
+					sam.setListaZlecen(bZlecenia.WczytajZleceniaKlienta(sam.getKlientPesel(), sam.getIdSamochodu()));					
 				}
 				
 			} catch (SQLException e) {

@@ -41,7 +41,7 @@ public class bCzesciZlecenia {
 		int result = -1;
 		if(czescZlecenia != null){
 			
-			String query = "INSERT INTO zlecenia_has_czesci (Zlecenia_idZlecenia, Czesci_idCzesci, Ilosc ) VALUES ('" + czescZlecenia.getIdCzesci() + "','" + czescZlecenia.getIdCzesci() + "','" + czescZlecenia.getIlosc() + "');";
+			String query = "INSERT INTO zlecenia_has_czesci (Zlecenia_idZlecenia, Czesci_idCzesci, Ilosc ) VALUES ('" + czescZlecenia.getIdZlecenia() + "','" + czescZlecenia.getIdCzesci() + "','" + czescZlecenia.getIlosc() + "');";
 			result = obsZap.insert(query);
 						
 		}

@@ -1,6 +1,11 @@
 package wDanych;
 
+import java.sql.Date;
 import java.util.ArrayList;
+
+import wBazy.bZlecenia;
+
+import com.mysql.fabric.xmlrpc.base.Data;
 
 public class Samochod {
 
@@ -37,7 +42,31 @@ public class Samochod {
 		this.rokProdukcji = rokProdukcji;
 	}
 
+//*********** Modyfikacja danych ************
 	
+	public int dodajZlecenie(String dataPrzyjecia, String dataZakonczenia, String idPracownik, String idMiejsceSerisowe){
+		
+		int result = 0;
+		
+		Zlecenia tmpZlec = new Zlecenia(dataPrzyjecia, dataZakonczenia, idSamochodu, klientPesel, idPracownik, idMiejsceSerisowe);
+		result = bZlecenia.ZapiszZlecenieKlienta(tmpZlec);
+		
+		System.out.println(tmpZlec.toString());
+		
+		return result;
+	}
+	
+	public Zlecenia zwrocOtwarteZlecenie(){
+		
+		for(Zlecenia zle: listaZlecen){
+			
+			if(!zle.isWykonano())
+				return zle;			
+		}
+		
+		
+		return null;
+	}
 	
 	
 	public String showZlecenia(){
